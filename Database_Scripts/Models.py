@@ -8,10 +8,15 @@ from sqlalchemy.sql import func
 from .Schemas import Music, Executions
 from datetime import datetime, timedelta
 
+import os
+
 class DatabaseModels:
 
     def __init__(self):
-        self.database = create_engine("postgresql+psycopg2://postgres:ONK88Xw0My67lLyO@secretly-feminine-mink.data-1.use1.tembo.io:5432/postgres")
+
+        self.stringConnection = os.environ["StringConnection"]
+        
+        self.database = create_engine(self.stringConnection)
         self.Session = sessionmaker(bind=self.database)
         self.session = self.Session()
 
