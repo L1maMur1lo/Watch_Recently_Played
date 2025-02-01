@@ -1,7 +1,10 @@
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, create_engine
 from sqlalchemy.orm import declarative_base
 
-database = create_engine('postgresql+psycopg2://postgres:ONK88Xw0My67lLyO@secretly-feminine-mink.data-1.use1.tembo.io:5432/postgres')
+import os
+
+StringConnection = os.environ["StringConnection"]
+database = create_engine(StringConnection)
 Base = declarative_base()
 
 class Music(Base):
