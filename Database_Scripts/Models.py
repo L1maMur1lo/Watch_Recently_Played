@@ -31,9 +31,12 @@ class DatabaseModels:
             return True
 
     def addExecution(self, musicId:str, played_At:str):
-        dateTime = datetime.strptime(played_At, '%Y-%m-%dT%H:%M:%S.%fZ')
+        try:
+            dateTime = datetime.strptime(played_At, '%Y-%m-%dT%H:%M:%S.%fZ')
+        except ValueError:
+            dateTime = datetime.strptime(played_At, '%Y-%m-%dT%H:%M:%SZ')
+        
         dateTime = (dateTime - timedelta(hours=3))
-
         response = self.session.query(Executions).where(Executions.musicId==musicId, Executions.played_At==dateTime).first()
 
         if response is None:
